@@ -69,10 +69,10 @@ flowchart TD
 
 ## Depo yapısı
 
-GitHub deposunda kaynak proje `sonsersim.zip` arşivi içinde bulunmaktadır:
+Kaynak kod doğrudan depo kökünde, standart Expo proje yapısıyla bulunmaktadır:
 
 ```text
-factory-defect-tracker-main/
+sersimstaj/
 ├── app/                    # Expo Router ekranları ve yönlendirme
 │   ├── (auth)/             # Giriş ekranı
 │   └── (tabs)/             # Ana panel ve profil
@@ -102,21 +102,21 @@ git clone https://github.com/karligorkem/sersimstaj.git
 cd sersimstaj
 ```
 
-### 2. Kaynak kodu çıkarın
+### 2. Ortam dosyasını oluşturun
 
 PowerShell:
 
 ```powershell
-Expand-Archive -LiteralPath .\sonsersim.zip -DestinationPath . -Force
-cd .\factory-defect-tracker-main
+Copy-Item .env.example .env
 ```
 
 Linux/macOS:
 
 ```bash
-unzip sonsersim.zip
-cd factory-defect-tracker-main
+cp .env.example .env
 ```
+
+`.env` içindeki örnek adresi kullanacağınız backend API adresiyle değiştirin.
 
 ### 3. Bağımlılıkları yükleyin
 
@@ -139,10 +139,16 @@ npm run ios
 npm run web
 ```
 
+## API yapılandırması
 
+API temel adresi Git'e eklenmeyen `.env` dosyasında tanımlanır:
 
-Geliştirme veya test ortamında `baseURL` değerini kullanılacak backend adresine
-göre düzenleyin. Uygulama isteklerde SecureStore içindeki erişim anahtarını
+```dotenv
+EXPO_PUBLIC_API_URL=https://example.com/api
+```
+
+`.env.example` dosyasını `.env` adıyla kopyalayıp adresi geliştirme veya üretim
+ortamınıza göre düzenleyin. Uygulama SecureStore içindeki erişim anahtarını
 otomatik olarak `Authorization: Bearer <token>` başlığına ekler.
 
 > Backend uygulaması bu depoya dahil değildir. Giriş, kullanıcılar, formlar,
@@ -172,7 +178,7 @@ Bir üretim hata kaydı temel olarak şu bilgileri içerir:
 ## Bilinen sınırlamalar
 
 - Backend kaynak kodu ve API kurulumu bu depoda bulunmaz.
-- Kaynak kod şu anda ZIP arşivi içinde dağıtılmaktadır.
+- Yerel `.env` ve erişim bilgileri Git deposuna eklenmez.
 - Bazı üretim hattı/form varsayılanları gerçek ortam için ayrıca yapılandırılmalıdır.
 - Çevrimdışı senkronizasyon üretime alınmadan önce ağ kesintisi ve tekrar gönderim
   senaryolarında uçtan uca test edilmelidir.
