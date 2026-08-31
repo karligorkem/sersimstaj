@@ -139,13 +139,7 @@ npm run ios
 npm run web
 ```
 
-## API yapılandırması
 
-API temel adresi aşağıdaki dosyada tanımlanır:
-
-```text
-services/api.ts
-```
 
 Geliştirme veya test ortamında `baseURL` değerini kullanılacak backend adresine
 göre düzenleyin. Uygulama isteklerde SecureStore içindeki erişim anahtarını
